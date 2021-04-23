@@ -18,10 +18,10 @@ void error_handling(char *message)
 
 // connnect&send function
 
-int connect_and_send_message(char* ip, int port){
+int connect_and_send_message(char* ip, int port, char* message){
 	int sock;
 	int str_len;
-	int adr_sz; int str_len;
+	int adr_sz; 
 	struct sockaddr_in serv_addr, from_adr;
 
 
@@ -40,7 +40,7 @@ int connect_and_send_message(char* ip, int port){
       if(!strcmp(message,"q\n") || !strcmp(message,"Q\n"))   
          break;
       sendto(sock, message, strlen(message), 0, 
-               (struct sockaddr*)&serv_adr, sizeof(serv_adr));
+               (struct sockaddr*)&serv_addr, sizeof(serv_addr));
       adr_sz=sizeof(from_adr);
       str_len=recvfrom(sock, message, BUF_SIZE, 0, 
                (struct sockaddr*)&from_adr, &adr_sz);
@@ -75,6 +75,6 @@ int main(int argc, char* argv[]){
 	strcpy(ip, argv[1]);
 	port = atoi(argv[2]);
 	printf("IP: %s, PORT: %d\n", ip, port);
-	sock = connect_and_send_message(ip, port);
+	sock = connect_and_send_message(ip, port, message);
 	close_connection(sock);
 }
