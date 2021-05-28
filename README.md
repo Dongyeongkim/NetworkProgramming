@@ -1,2 +1,4 @@
 # NetworkProgramming
-NetworkProgramming 2021 in Dimigo; For the pilgrims who are seriously trying to find the code.
+NetworkProgramming 2021 in Dimigo
+
+Making secure messenger based on Eliptic Curve 
