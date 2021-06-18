@@ -45,6 +45,7 @@ struct sockaddr_in addr;
 
 int main(int argc, char *argv[])
 {
+	int multicast_received = 0;
 	int connection_status = 0;
 	// common
 	MyInfo	myinfo;
@@ -140,9 +141,10 @@ int main(int argc, char *argv[])
 					// Address and Port setting
 					cmd_addr.sin_addr.s_addr=inet_addr(ip);
 					cmd_addr.sin_port=htons(port);
-
-					printf("\nChatting Manager IP and Port> [%s] [%d]\n",ip, port);
-					
+					if(multicast_received == 0){
+						printf("\nChatting Manager IP and Port> [%s] [%d]\n",ip, port);
+						multicast_received++;
+						}
 					
 				}
 
