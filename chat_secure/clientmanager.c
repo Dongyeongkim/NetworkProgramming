@@ -285,7 +285,6 @@ int main(int argc, char **argv)
                             
                         
                             }
-                        if (--state <= 0)break;
                 } // for
             } // while
         } 
