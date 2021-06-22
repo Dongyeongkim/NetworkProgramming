@@ -211,15 +211,17 @@ int main(int argc, char **argv)
                 }
 
             // client socket check
-                for (i = 0; i <= max_client; i++)
+                for (int i = 0; i < MAX_SOCK; i++)
                 {
                     if ((sockfd = client[i]) < 0) {
                         continue;
                     }
-
+                    printf("sockfd:%d\n",sockfd);
+                    printf("status:%d\n",FD_ISSET(sockfd, &allfds));
                     if (FD_ISSET(sockfd, &allfds))
                     {
                         memset(buf, 0, MAX_BUF);
+
 
                 // Disconnet from Client 
                         if (read(sockfd, buf, MAX_BUF) <= 0) {
@@ -245,7 +247,6 @@ int main(int argc, char **argv)
                                     printf("%s\n",clientarr[i]->ip);
                                     printf("%d\n",clientarr[i]->port);
                                     printf("%d\n",clientarr[i]->state);
-                                    printf("%s\n", clientarr[i]->password);
                                     memset(&TU, 0, 1024);
                                     TU.OPCODE = OK;
                                     write(sockfd, &TU, 1024);
@@ -270,7 +271,7 @@ int main(int argc, char **argv)
                             if(TU.OPCODE == REQUEST){
                                 memset(&TU, 0, 1024);
                                 for(int i = 0; i < nowclientnum; i++){
-                                    memcpy(&TU.msg,clientarr[i],73);
+                                    memcpy(&TU.msg[i*73],clientarr[i],73);
                                     printf("%s\n",clientarr[i]->name);
                                     printf("%s\n",clientarr[i]->ip);
                                     printf("%d\n",clientarr[i]->port);
@@ -285,8 +286,8 @@ int main(int argc, char **argv)
                             
                         
                             }
+                        
                 } // for
             } // while
         } 
 }
-
